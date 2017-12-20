@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\ControlPanel\Sip]
+"DefaultIm"="{f50603d1-cf2f-41d8-a74b-651226633ff0}"
+"DragStyle"=dword:00000001
+"AllowChange"=dword:00000001
+
+

@@ -1,0 +1,235 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\Turnout.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\Turnout.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TURNOUT_DIALOG DIALOG  0, 0, 184, 134
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW | 0x80000000L
+FONT 10, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "退出",IDC_BUTTON5,153,101,24,19
+    LTEXT           "静态",IDC_STATIC4,7,8,174,27
+    LTEXT           "静态",IDC_STATIC1,7,37,33,38
+    LTEXT           "修改内容",IDC_STATIC2,45,37,103,34,WS_BORDER
+    LTEXT           "mm",IDC_STATIC3,150,43,27,20
+    LTEXT           "静态",IDC_STATIC5,151,62,26,12
+    PUSHBUTTON      "保存数据",IDC_BUTTON4,138,75,39,21
+    PUSHBUTTON      "测量结果",IDC_BUTTON3,95,75,39,21
+    PUSHBUTTON      "二次测量",IDC_BUTTON2,51,75,39,21
+    PUSHBUTTON      "一次测量",IDC_BUTTON1,7,75,39,21
+    CONTROL         135,IDC_BATTERY,"Static",SS_BITMAP,7,100,47,26,WS_EX_DLGMODALFRAME
+    LTEXT           "UID:",IDC_STATIC8,47,106,106,17
+END
+
+IDD_MESSAGE_DIALOG DIALOG  0, 0, 141, 109
+STYLE DS_SETFONT | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 10, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,49,81,42,21
+    PUSHBUTTON      "取消",IDCANCEL,92,81,42,21
+    COMBOBOX        IDC_COMBO1,7,16,60,57,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "区段名称",IDC_STATIC01,7,7,57,8
+    COMBOBOX        IDC_COMBO2,73,16,60,62,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "道岔编号",IDC_STATIC02,76,7,56,8
+    COMBOBOX        IDC_COMBO3,7,41,60,53,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "道岔类型",IDC_STATIC03,7,31,58,11
+    COMBOBOX        IDC_COMBO4,74,41,60,53,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "测量股道",IDC_STATIC04,76,31,58,10
+    COMBOBOX        IDC_COMBO5,7,66,60,53,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "标准岔号",IDC_STATIC6,7,56,58,11
+    COMBOBOX        IDC_COMBO6,74,66,60,53,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "测量位置",IDC_STATIC7,76,56,58,10
+    LTEXT           "差:",IDC_STATIC_DIFF,7,89,41,14
+    COMBOBOX        IDC_COMBO7,7,66,60,53,CBS_DROPDOWN | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "Turnout.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "Turnout.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_TURNOUT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 177
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 127
+    END
+
+    IDD_MESSAGE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 134
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 102
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_MESSAGE_DIALOG DLGINIT
+BEGIN
+    IDC_COMBO3, 0x403, 5, 0
+0xe2bc, 0xecb9, "\000" 
+    IDC_COMBO3, 0x403, 5, 0
+0xc4d0, 0xecb9, "\000" 
+    IDC_COMBO4, 0x403, 5, 0
+0xf3d7, 0xc9b9, "\000" 
+    IDC_COMBO4, 0x403, 5, 0
+0xd2d3, 0xc9b9, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "FULL_2.bmp"
+IDB_BITMAP2             BITMAP                  "MEDIUM1_2.bmp"
+IDB_BITMAP3             BITMAP                  "MEDIUM2_2.bmp"
+IDB_BITMAP4             BITMAP                  "EMPTY_2.bmp"
+IDB_BITMAP5             BITMAP                  "res\\bitmap5.bmp"
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\Turnout.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
