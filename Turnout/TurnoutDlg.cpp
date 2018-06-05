@@ -301,7 +301,8 @@ void CTurnoutDlg::OnBnClickedButton2()
 void CTurnoutDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	m_Result=fabs(m_SecondaryVal-m_OnceVal);
+	//m_Result=fabs(m_SecondaryVal-m_OnceVal);
+	m_Result=m_OnceVal-m_SecondaryVal;
 	//m_Result=-0.0006*pow(m_Result,3.0)+0.0046*pow(m_Result,2.0)+1.0328*pow(m_Result,1.0)-0.0642;
 	theApp.Val = m_Result;
 	m_ShowTitle.Format(_T("测量结果"));
