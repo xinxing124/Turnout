@@ -694,6 +694,7 @@ void CTurnoutDlg::OnTimer(UINT_PTR nIDEvent)
 	UINT16 Val;
 	API_ADC_Read(0,&Val);
 	//if(Val<m_Val) m_Val=Val;
+	if Val==0 then return;
 	m_Val=Val;
 	double dBattery=m_Val*5.0/4096.0;
 
