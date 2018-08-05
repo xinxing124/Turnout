@@ -1,4 +1,4 @@
-// TurnoutDlg.cpp : ÊµÏÖÎÄ¼ş
+ï»¿// TurnoutDlg.cpp : å®ç°æ–‡ä»¶
 //
 
 #include "stdafx.h"
@@ -12,12 +12,12 @@
 #define new DEBUG_NEW
 #endif
 
-//¶¨Òå´®¿ÚÊı¾İ½ÓÊÕÏûÏ¢³£Á¿
+//å®šä¹‰ä¸²å£æ•°æ®æ¥æ”¶æ¶ˆæ¯å¸¸é‡
 #define WM_RECV_SERIAL_DATA WM_USER + 101
 #define WM_UPDATESIMULATION 1001
 
-// CTurnoutDlg ¶Ô»°¿ò
-//¶ÁÏß³ÌÍË³öÊÂ¼ş
+// CTurnoutDlg å¯¹è¯æ¡†
+//è¯»çº¿ç¨‹é€€å‡ºäº‹ä»¶
 HANDLE g_hDetIOEvent;
 HWND g_hWnd;
 
@@ -59,17 +59,17 @@ BEGIN_MESSAGE_MAP(CTurnoutDlg, CDialog)
 END_MESSAGE_MAP()
 
 
-// CTurnoutDlg ÏûÏ¢´¦Àí³ÌĞò
-//Ïß³Ìº¯Êı
+// CTurnoutDlg æ¶ˆæ¯å¤„ç†ç¨‹åº
+//çº¿ç¨‹å‡½æ•°
 DWORD CTurnoutDlg::ThreadFunc(LPVOID lparam)
 {
 	CTurnoutDlg *TurnoutDlg = (CTurnoutDlg*)lparam;
 	DWORD dwRet;
 	while (TRUE)
 	{   	
-		//Èç¹ûÊÕµ½¶ÁÏß³ÌÍË³öĞÅºÅ£¬ÔòÍË³öÏß³Ì
+		//å¦‚æœæ”¶åˆ°è¯»çº¿ç¨‹é€€å‡ºä¿¡å·ï¼Œåˆ™é€€å‡ºçº¿ç¨‹
 		dwRet=WaitForSingleObject(g_hDetIOEvent,500);
-		if (dwRet== WAIT_OBJECT_0)//µ÷ÊÔÄ£Ê½
+		if (dwRet== WAIT_OBJECT_0)//è°ƒè¯•æ¨¡å¼
 		{
 			//::AfxMessageBox(_T("1"));
 			//TurnoutDlg->ReadParam();
@@ -77,7 +77,7 @@ DWORD CTurnoutDlg::ThreadFunc(LPVOID lparam)
 			::ShowWindow(g_hWnd,1);
 			break;
 		}
-		if ( dwRet== WAIT_TIMEOUT)//ÎŞ·µ»Ø³¬Ê±
+		if ( dwRet== WAIT_TIMEOUT)//æ— è¿”å›è¶…æ—¶
 		{
 			//WAIT_TIMEOUT
 			//::AfxMessageBox(_T("2"));
@@ -91,10 +91,10 @@ DWORD CTurnoutDlg::ThreadFunc(LPVOID lparam)
 	return 0;
 }
 
-//¹Ø±Õ¶ÁÏß³Ì
+//å…³é—­è¯»çº¿ç¨‹
 void CTurnoutDlg::CloseThread()
 {
-    //µÈ´ı4Ãë£¬Èç¹û¶ÁÏß³ÌÃ»ÓĞÍË³ö£¬ÔòÇ¿ÖÆÍË³ö
+    //ç­‰å¾…4ç§’ï¼Œå¦‚æœè¯»çº¿ç¨‹æ²¡æœ‰é€€å‡ºï¼Œåˆ™å¼ºåˆ¶é€€å‡º
     if (WaitForSingleObject(m_hThread,4000) == WAIT_TIMEOUT)
 	{
 		TerminateThread(m_hThread,0);
@@ -105,10 +105,10 @@ BOOL CTurnoutDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	
-	// ÉèÖÃ´Ë¶Ô»°¿òµÄÍ¼±ê¡£µ±Ó¦ÓÃ³ÌĞòÖ÷´°¿Ú²»ÊÇ¶Ô»°¿òÊ±£¬¿ò¼Ü½«×Ô¶¯
-	//  Ö´ĞĞ´Ë²Ù×÷
-	SetIcon(m_hIcon, TRUE);			// ÉèÖÃ´óÍ¼±ê
-	SetIcon(m_hIcon, FALSE);		// ÉèÖÃĞ¡Í¼±ê
+	// è®¾ç½®æ­¤å¯¹è¯æ¡†çš„å›¾æ ‡ã€‚å½“åº”ç”¨ç¨‹åºä¸»çª—å£ä¸æ˜¯å¯¹è¯æ¡†æ—¶ï¼Œæ¡†æ¶å°†è‡ªåŠ¨
+	//  æ‰§è¡Œæ­¤æ“ä½œ
+	SetIcon(m_hIcon, TRUE);			// è®¾ç½®å¤§å›¾æ ‡
+	SetIcon(m_hIcon, FALSE);		// è®¾ç½®å°å›¾æ ‡
 	
 	SetTimer(WM_UPDATESIMULATION, 10000, NULL);
 
@@ -122,41 +122,41 @@ BOOL CTurnoutDlg::OnInitDialog()
 	}
 
 	g_hWnd=GetDlgItem(IDC_BUTTON5)->m_hWnd; 
-	//´´½¨¼àÌıÏß³Ì
+	//åˆ›å»ºç›‘å¬çº¿ç¨‹
 	m_hThread = CreateThread(NULL,0,ThreadFunc,this,0,&m_dwThreadID);
 
-	// TODO: ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ é¢å¤–çš„åˆå§‹åŒ–ä»£ç 
 	Sleep(10000);
 	ReadParam();
 	//CFont Font;
 	//Font.CreatePointFont(200,L"MS Sans Serif");
 	//CFont Font;
-	//Font.CreatePointFont(20,L"ËÎÌå");
+	//Font.CreatePointFont(20,L"å®‹ä½“");
 	
 	int iFullWidth = GetSystemMetrics(SM_CXSCREEN);
 	int iFullHeight = GetSystemMetrics(SM_CYSCREEN); 
 	::SetWindowPos(this->m_hWnd, HWND_TOPMOST, 0, 0, iFullWidth, iFullHeight, SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
 
-	fontTitle.CreatePointFont(200,L"Î¢ÈíÑÅºÚ");  
-	fontContent.CreatePointFont(280,L"Î¢ÈíÑÅºÚ");  
-	fontCompany.CreatePointFont(150,L"Î¢ÈíÑÅºÚ");  
+	fontTitle.CreatePointFont(200,L"å¾®è½¯é›…é»‘");  
+	fontContent.CreatePointFont(280,L"å¾®è½¯é›…é»‘");  
+	fontCompany.CreatePointFont(150,L"å¾®è½¯é›…é»‘");  
 	
 
 	//GetDlgItem(IDC_STATIC)->SetFont(&Font);
-	GetDlgItem(IDC_STATIC1)->SetWindowTextW(_T("Ò»´Î²âÁ¿"));
+	GetDlgItem(IDC_STATIC1)->SetWindowTextW(_T("ä¸€æ¬¡æµ‹é‡"));
 	GetDlgItem(IDC_STATIC2)->SetWindowTextW(_T("0.000"));
 	//GetDlgItem(IDC_STATIC1)->SetFont(&Font);
 	
 	GetDlgItem(IDC_STATIC3)->SetWindowTextW(_T("mm"));
-	GetDlgItem(IDC_STATIC4)->SetWindowTextW(_T("¼â¹ì½µµÍÖµ²âÁ¿ÒÇ"));
-	//GetDlgItem(IDC_STATIC5)->SetWindowTextW(_T("±±¾©Ñàºê´ïÌúÂ·Éè±¸ÓĞÏŞ¹«Ë¾"));
+	GetDlgItem(IDC_STATIC4)->SetWindowTextW(_T("å°–è½¨é™ä½å€¼æµ‹é‡ä»ª"));
+	//GetDlgItem(IDC_STATIC5)->SetWindowTextW(_T("åŒ—äº¬ç‡•å®è¾¾é“è·¯è®¾å¤‡æœ‰é™å…¬å¸"));
 	GetDlgItem(IDC_STATIC5)->SetWindowTextW(_T(""));
 	GetDlgItem(IDC_STATIC8)->SetWindowTextW(_T("UID:")+theApp.UID);
 	
 	::SetCursorPos(iFullHeight,iFullWidth);
 	ShowCursor(FALSE);
 
-	return TRUE;  // ³ı·Ç½«½¹µãÉèÖÃµ½¿Ø¼ş£¬·ñÔò·µ»Ø TRUE
+	return TRUE;  // é™¤éå°†ç„¦ç‚¹è®¾ç½®åˆ°æ§ä»¶ï¼Œå¦åˆ™è¿”å› TRUE
 }
 
 #if defined(_DEVICE_RESOLUTION_AWARE) && !defined(WIN32_PLATFORM_WFSP)
@@ -177,7 +177,7 @@ void CTurnoutDlg::OnSize(UINT /*nType*/, int /*cx*/, int /*cy*/)
 
 void CTurnoutDlg::OnBnClickedButton1()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	/*
 	double dTemp=0.0;
 	double dVal[15];
@@ -199,20 +199,20 @@ void CTurnoutDlg::OnBnClickedButton1()
 	//double   m_Result;
 
 	//this->GetDlgItem(IDC_STATIC)->SetWindowTextW("");
-	//GetDlgItem(IDC_STATIC)->SetWindowTextW(_T("Ã÷ÈÕ¿Æ¼¼"));
+	//GetDlgItem(IDC_STATIC)->SetWindowTextW(_T("æ˜æ—¥ç§‘æŠ€"));
 	//GetDlgItem(IDC_STATIC)->UpdateData(false);
-	//this->SetDlgItemTextW(IDC_STATIC,_T("Ã÷ÈÕ¿Æ¼¼"));
+	//this->SetDlgItemTextW(IDC_STATIC,_T("æ˜æ—¥ç§‘æŠ€"));
 	//GetDlgItem(IDC_STATIC)->Invalidate();
 
 	//SetDlgItemText(IDC_STATIC,_T("ABC"));
-	//GetDlgItem(IDC_STATIC)->SetWindowText(_T("111"));////½«ÄÚÈİÉèÖÃÎª111 
-	//SetDlgItemText(IDC_STATIC,_T("ÏÔÊ¾ÄÚÈİ"));
-	m_ShowTitle.Format(_T("Ò»´Î²âÁ¿"));
+	//GetDlgItem(IDC_STATIC)->SetWindowText(_T("111"));////å°†å†…å®¹è®¾ç½®ä¸º111 
+	//SetDlgItemText(IDC_STATIC,_T("æ˜¾ç¤ºå†…å®¹"));
+	m_ShowTitle.Format(_T("ä¸€æ¬¡æµ‹é‡"));
 	m_ShowResult.Format(_T("%.3f"),m_OnceVal);
 	UpdateData(false);
 */
 	m_OnceVal=-99.9;
-	m_ShowTitle.Format(_T("Ò»´Î²âÁ¿"));
+	m_ShowTitle.Format(_T("ä¸€æ¬¡æµ‹é‡"));
 	GatherData();
 }
 
@@ -220,12 +220,12 @@ HBRUSH CTurnoutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
-	// TODO:  ÔÚ´Ë¸ü¸Ä DC µÄÈÎºÎÊôĞÔ
+	// TODO:  åœ¨æ­¤æ›´æ”¹ DC çš„ä»»ä½•å±æ€§
 	switch(pWnd->GetDlgCtrlID())   
 	{   
 		case IDC_STATIC1: 
 		    pDC->SetBkMode(TRANSPARENT);
-			pDC->SetTextColor(RGB(255,0,0));    //Static¿Ø¼ş1µÄ×ÖÌåÑÕÉ«-ºìÉ«
+			pDC->SetTextColor(RGB(255,0,0));    //Staticæ§ä»¶1çš„å­—ä½“é¢œè‰²-çº¢è‰²
 			pDC->SelectObject(&fontTitle); 
 			
 			//return (HBRUSH)m_brush1.GetSafeHandle();
@@ -233,32 +233,32 @@ HBRUSH CTurnoutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 		case IDC_STATIC2: 
 		    pDC->SetBkMode(TRANSPARENT); 
-			pDC->SetTextColor(RGB(0,255,0));    //Static¿Ø¼ş2µÄ×ÖÌåÑÕÉ«-ÂÌÉ«
+			pDC->SetTextColor(RGB(0,255,0));    //Staticæ§ä»¶2çš„å­—ä½“é¢œè‰²-ç»¿è‰²
 			pDC->SelectObject(&fontContent); 
 			//return (HBRUSH)m_brush2.GetSafeHandle();   
 		break;   
 
 		case IDC_STATIC3: 
- 			pDC->SetTextColor(RGB(0,0,255)); //Static¿Ø¼ş3µÄ×ÖÌåÑÕÉ«-À¶É«
+ 			pDC->SetTextColor(RGB(0,0,255)); //Staticæ§ä»¶3çš„å­—ä½“é¢œè‰²-è“è‰²
 			pDC->SelectObject(&fontTitle); 
-			//pDC->SetBkColor(RGB(255,0,0));   //Static¿Ø¼ş3µÄ×ÖÌå±³¾°ÑÕÉ«-ºìÉ«
+			//pDC->SetBkColor(RGB(255,0,0));   //Staticæ§ä»¶3çš„å­—ä½“èƒŒæ™¯é¢œè‰²-çº¢è‰²
 		break;  
 		case IDC_STATIC4: 
 		    pDC->SetBkMode(TRANSPARENT); 
-			pDC->SetTextColor(RGB(255,255,255));    //Static¿Ø¼ş2µÄ×ÖÌåÑÕÉ«-ÂÌÉ«
+			pDC->SetTextColor(RGB(255,255,255));    //Staticæ§ä»¶2çš„å­—ä½“é¢œè‰²-ç»¿è‰²
 			pDC->SelectObject(&fontContent); 
 			//return (HBRUSH)m_brush2.GetSafeHandle();   
 		break;  
 		case IDC_STATIC5: 
 		    pDC->SetBkMode(TRANSPARENT); 
-			//pDC->SetTextColor(RGB(255,255,255));    //Static¿Ø¼ş2µÄ×ÖÌåÑÕÉ«-ÂÌÉ«
+			//pDC->SetTextColor(RGB(255,255,255));    //Staticæ§ä»¶2çš„å­—ä½“é¢œè‰²-ç»¿è‰²
 			pDC->SelectObject(&fontCompany); 
 			//return (HBRUSH)m_brush2.GetSafeHandle();   
 		break;  
 		case IDC_STATIC8: 
 		    pDC->SetBkMode(TRANSPARENT); 
-			pDC->SetTextColor(RGB(199,199,199));    //Static¿Ø¼ş2µÄ×ÖÌåÑÕÉ«-ÂÌÉ«
-			//pDC->SetTextColor(RGB(200,200,200));    //Static¿Ø¼ş2µÄ×ÖÌåÑÕÉ«-ÂÌÉ«
+			pDC->SetTextColor(RGB(199,199,199));    //Staticæ§ä»¶2çš„å­—ä½“é¢œè‰²-ç»¿è‰²
+			//pDC->SetTextColor(RGB(200,200,200));    //Staticæ§ä»¶2çš„å­—ä½“é¢œè‰²-ç»¿è‰²
 			pDC->SelectObject(&fontCompany); 
 			//return (HBRUSH)m_brush2.GetSafeHandle();   
 		break;  
@@ -268,14 +268,14 @@ HBRUSH CTurnoutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	GetDlgItem(IDC_BUTTON3)->UpdateWindow();
 	GetDlgItem(IDC_BUTTON4)->UpdateWindow();
 	GetDlgItem(IDC_BUTTON5)->UpdateWindow();
-	// TODO:  Èç¹ûÄ¬ÈÏµÄ²»ÊÇËùĞè»­±Ê£¬Ôò·µ»ØÁíÒ»¸ö»­±Ê
+	// TODO:  å¦‚æœé»˜è®¤çš„ä¸æ˜¯æ‰€éœ€ç”»ç¬”ï¼Œåˆ™è¿”å›å¦ä¸€ä¸ªç”»ç¬”
 	return hbr;
 }
 
 void CTurnoutDlg::OnBnClickedButton2()
 {
 	/*
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	double dTemp=0.0;
 	double dVal[5];
 	UINT16 Val;
@@ -289,23 +289,23 @@ void CTurnoutDlg::OnBnClickedButton2()
 	//m_SecondaryVal=GetMedianNum(dVal,5);
 	m_SecondaryVal=dTemp/5.0;
 
-	m_ShowTitle.Format(_T("¶ş´Î²âÁ¿"));
+	m_ShowTitle.Format(_T("äºŒæ¬¡æµ‹é‡"));
 	m_ShowResult.Format(_T("%.3f"),m_SecondaryVal);
 	UpdateData(false);
 */
-	m_ShowTitle.Format(_T("¶ş´Î²âÁ¿"));
+	m_ShowTitle.Format(_T("äºŒæ¬¡æµ‹é‡"));
 	m_SecondaryVal=-99.9;
 	GatherData();
 }
 
 void CTurnoutDlg::OnBnClickedButton3()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	//m_Result=fabs(m_SecondaryVal-m_OnceVal);
 	m_Result=m_OnceVal-m_SecondaryVal;
 	//m_Result=-0.0006*pow(m_Result,3.0)+0.0046*pow(m_Result,2.0)+1.0328*pow(m_Result,1.0)-0.0642;
 	theApp.Val = m_Result;
-	m_ShowTitle.Format(_T("²âÁ¿½á¹û"));
+	m_ShowTitle.Format(_T("æµ‹é‡ç»“æœ"));
 	m_ShowResult.Format(_T("%.3f"),m_Result);
 	UpdateData(false);
 }
@@ -313,14 +313,14 @@ void CTurnoutDlg::OnBnClickedButton3()
 void CTurnoutDlg::OnBnClickedButton4()
 {
 	
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CMessageDlg dlg;
 	//m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
 	{
-		// TODO: ÔÚ´Ë·ÅÖÃ´¦ÀíºÎÊ±ÓÃ
-		//  ¡°È·¶¨¡±À´¹Ø±Õ¶Ô»°¿òµÄ´úÂë
+		// TODO: åœ¨æ­¤æ”¾ç½®å¤„ç†ä½•æ—¶ç”¨
+		//  â€œç¡®å®šâ€æ¥å…³é—­å¯¹è¯æ¡†çš„ä»£ç 
 	}
 	
 	//OnOK();
@@ -329,52 +329,52 @@ void CTurnoutDlg::OnBnClickedButton4()
 int CTurnoutDlg::FileRead(CString filename,CString* content)
 {
 	int lRet;
-	HANDLE hFile = INVALID_HANDLE_VALUE;	// ÎÄ¼ş¾ä±ú 
+	HANDLE hFile = INVALID_HANDLE_VALUE;	// æ–‡ä»¶å¥æŸ„ 
 	if(::GetFileAttributes(filename)==0xFFFFFFFF)
 	{
-	//::AfxMessageBox(_T("ÎÄ¼ş²»´æÔÚ"));
+	//::AfxMessageBox(_T("æ–‡ä»¶ä¸å­˜åœ¨"));
 		return -5;
 	}
-	// ´´½¨Ò»¸öÎÄ¼ş»ò´ò¿ªÒ»¸öÎÄ¼ş
+	// åˆ›å»ºä¸€ä¸ªæ–‡ä»¶æˆ–æ‰“å¼€ä¸€ä¸ªæ–‡ä»¶
 	hFile = CreateFile(filename, GENERIC_READ | GENERIC_WRITE, 0, 
 					   NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
-		//AfxMessageBox(_T("´ò¿ªÎÄ¼şÊ§°Ü!"));
+		//AfxMessageBox(_T("æ‰“å¼€æ–‡ä»¶å¤±è´¥!"));
 		return -1;
 	}
 
 	DWORD filelen,actlen;
 	char *pcharbuff;
 	
-	filelen = GetFileSize(hFile, NULL);							// »ñÈ¡ÎÄ¼ş´óĞ¡
+	filelen = GetFileSize(hFile, NULL);							// è·å–æ–‡ä»¶å¤§å°
 	if (filelen == 0xFFFFFFFF)
 	{
-		//AfxMessageBox(_T("»ñÈ¡ÎÄ¼ş´óĞ¡Ê§°Ü!"));
+		//AfxMessageBox(_T("è·å–æ–‡ä»¶å¤§å°å¤±è´¥!"));
 		return -2;	
 	}
 
-	BOOL ret = SetFilePointer(hFile, 0, NULL, FILE_BEGIN);		// ÒÆ¶¯ÎÄ¼şÖ¸Õëµ½ÎÄ¼ş¿ªÍ·
+	BOOL ret = SetFilePointer(hFile, 0, NULL, FILE_BEGIN);		// ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆåˆ°æ–‡ä»¶å¼€å¤´
 	if (ret == 0xFFFFFFFF)
 	{
-		//AfxMessageBox(_T("½«ÎÄ¼şÖ¸ÕëÒÆÖÁÎÄ¼ş¿ªÍ·Ê§°Ü!"));
+		//AfxMessageBox(_T("å°†æ–‡ä»¶æŒ‡é’ˆç§»è‡³æ–‡ä»¶å¼€å¤´å¤±è´¥!"));
 		return -3;	
 	}
 
 	pcharbuff = new char[filelen];
-	ret = ReadFile(hFile, pcharbuff, filelen, &actlen, NULL);	// ´ÓÎÄ¼şÖĞ¶Á³öÊı¾İ 
+	ret = ReadFile(hFile, pcharbuff, filelen, &actlen, NULL);	// ä»æ–‡ä»¶ä¸­è¯»å‡ºæ•°æ® 
 	if (ret == TRUE)
 	{
 		LPTSTR pStr = content->GetBuffer(filelen);	
-		// ½«×Ö½Ú×ª»¯Îª Unicode ×Ö·û´®
+		// å°†å­—èŠ‚è½¬åŒ–ä¸º Unicode å­—ç¬¦ä¸²
 		MultiByteToWideChar(CP_ACP, 0, pcharbuff, filelen, pStr, filelen);
 		content->ReleaseBuffer();
-		//AfxMessageBox(_T("¶ÁÎÄ¼ş³É¹¦!"));	
+		//AfxMessageBox(_T("è¯»æ–‡ä»¶æˆåŠŸ!"));	
 		lRet=0;
 	}
 	else
 	{
-		//AfxMessageBox(_T("¶ÁÎÄ¼şÊ§°Ü!"));	
+		//AfxMessageBox(_T("è¯»æ–‡ä»¶å¤±è´¥!"));	
 		lRet=-4;
 	}
 
@@ -406,17 +406,17 @@ void CTurnoutDlg::Split(CString source, CStringArray& dest, CString division)
 
 double CTurnoutDlg::GetMedianNum(double * dArray, int iFilterLen)  
 {  
-    int i,j;// Ñ­»·±äÁ¿  
+    int i,j;// å¾ªç¯å˜é‡  
     double dTemp;  
       
-    // ÓÃÃ°Åİ·¨¶ÔÊı×é½øĞĞÅÅĞò  
+    // ç”¨å†’æ³¡æ³•å¯¹æ•°ç»„è¿›è¡Œæ’åº  
     for (j = 0; j < iFilterLen ; j ++)  
     {  
         for (i = 0; i < iFilterLen - j; i ++)  
         {  
             if (dArray[i] > dArray[i + 1])  
             {  
-                // »¥»»  
+                // äº’æ¢  
                 dTemp = dArray[i];  
                 dArray[i] = dArray[i + 1];  
                 dArray[i + 1] = dTemp;  
@@ -424,52 +424,52 @@ double CTurnoutDlg::GetMedianNum(double * dArray, int iFilterLen)
         }  
     }  
       
-    // ¼ÆËãÖĞÖµ  
+    // è®¡ç®—ä¸­å€¼  
     if ((iFilterLen & 1) > 0)  
     {  
-        // Êı×éÓĞÆæÊı¸öÔªËØ£¬·µ»ØÖĞ¼äÒ»¸öÔªËØ  
+        // æ•°ç»„æœ‰å¥‡æ•°ä¸ªå…ƒç´ ï¼Œè¿”å›ä¸­é—´ä¸€ä¸ªå…ƒç´   
         dTemp = dArray[(iFilterLen + 1) / 2];  
     }  
     else  
     {  
-        // Êı×éÓĞÅ¼Êı¸öÔªËØ£¬·µ»ØÖĞ¼äÁ½¸öÔªËØÆ½¾ùÖµ  
+        // æ•°ç»„æœ‰å¶æ•°ä¸ªå…ƒç´ ï¼Œè¿”å›ä¸­é—´ä¸¤ä¸ªå…ƒç´ å¹³å‡å€¼  
         dTemp = (dArray[iFilterLen / 2] + dArray[iFilterLen / 2 + 1]) / 2;  
     }  
   
     return dTemp;  
 }  
 
-//¶¨Òå´®¿Ú½ÓÊÕÊı¾İº¯ÊıÀàĞÍ
+//å®šä¹‰ä¸²å£æ¥æ”¶æ•°æ®å‡½æ•°ç±»å‹
 void CALLBACK CTurnoutDlg::OnSerialRead(void * pOwner,BYTE* buf,DWORD bufLen)
 {
-	BYTE *pRecvBuf = NULL; //½ÓÊÕ»º³åÇø
-	//µÃµ½¸¸¶ÔÏóÖ¸Õë
+	BYTE *pRecvBuf = NULL; //æ¥æ”¶ç¼“å†²åŒº
+	//å¾—åˆ°çˆ¶å¯¹è±¡æŒ‡é’ˆ
 	CTurnoutDlg* pThis = (CTurnoutDlg*)pOwner;
-	//½«½ÓÊÕµÄ»º³åÇø¿½±´µ½pRecvBufÖÖ
+	//å°†æ¥æ”¶çš„ç¼“å†²åŒºæ‹·è´åˆ°pRecvBufç§
 	pRecvBuf = new BYTE[bufLen];
 	CopyMemory(pRecvBuf,buf,bufLen);
 
-	//·¢ËÍÒì²½ÏûÏ¢£¬±íÊ¾ÊÕµ½´®¿ÚÊı¾İ£¬ÏûÏ¢´¦ÀíÍê£¬Ó¦ÊÍ·ÅÄÚ´æ
+	//å‘é€å¼‚æ­¥æ¶ˆæ¯ï¼Œè¡¨ç¤ºæ”¶åˆ°ä¸²å£æ•°æ®ï¼Œæ¶ˆæ¯å¤„ç†å®Œï¼Œåº”é‡Šæ”¾å†…å­˜
 	pThis->PostMessage(WM_RECV_SERIAL_DATA,WPARAM(pRecvBuf),bufLen);
 
 }
 
-// ´®¿Ú½ÓÊÕÊı¾İ´¦Àíº¯Êı
+// ä¸²å£æ¥æ”¶æ•°æ®å¤„ç†å‡½æ•°
 LONG CTurnoutDlg::OnRecvSerialData(WPARAM wParam,LPARAM lParam)
 {
 	CString strOldRecv = L"";
 	CString strRecv = L"";
-	//´®¿Ú½ÓÊÕµ½µÄBUF
+	//ä¸²å£æ¥æ”¶åˆ°çš„BUF
 	CHAR *pBuf = (CHAR*)wParam;
 	//Wendu=*pBuf;
-	//´®¿Ú½ÓÊÕµ½µÄBUF³¤¶È
+	//ä¸²å£æ¥æ”¶åˆ°çš„BUFé•¿åº¦
 	DWORD dwBufLen = lParam;
 	
-	//½ÓÊÕ¿ò
+	//æ¥æ”¶æ¡†
 	//CEdit *pEdtRecvMsg = (CEdit*)GetDlgItem(IDC_STATIC2);
 	//ASSERT(pEdtRecvMsg != NULL);
 
-	//µÃµ½½ÓÊÕ¿òÖĞµÄÀúÊ·ÎÄ±¾
+	//å¾—åˆ°æ¥æ”¶æ¡†ä¸­çš„å†å²æ–‡æœ¬
 	//pEdtRecvMsg->GetWindowTextW(strOldRecv);
 
 	//
@@ -498,12 +498,12 @@ LONG CTurnoutDlg::OnRecvSerialData(WPARAM wParam,LPARAM lParam)
 		m_SecondaryVal=nTmp;
 	}
 	
-	//½«ĞÂ½ÓÊÕµ½µÄÎÄ±¾Ìí¼Óµ½½ÓÊÕ¿òÖĞ
+	//å°†æ–°æ¥æ”¶åˆ°çš„æ–‡æœ¬æ·»åŠ åˆ°æ¥æ”¶æ¡†ä¸­
 	strOldRecv = strOldRecv + strRecv;
 	
 	//pEdtRecvMsg->SetWindowTextW(strRecv);
 
-	//ÊÍ·ÅÄÚ´æ
+	//é‡Šæ”¾å†…å­˜
 	delete[] pBuf;
 	pBuf = NULL;
 
@@ -511,17 +511,17 @@ LONG CTurnoutDlg::OnRecvSerialData(WPARAM wParam,LPARAM lParam)
 	m_ShowResult.Format(_T("%.3f"),nTmp);
 	UpdateData(false);
 
-	//¹Ø±Õ´®¿Ú
+	//å…³é—­ä¸²å£
 	//
 	if (m_pSerial != NULL)
 	{
-		//¹Ø±Õ´®¿Ú
+		//å…³é—­ä¸²å£
 		m_pSerial->ClosePort();
 
-		//ÊÍ·Å´®¿Ú¶ÔÏó
+		//é‡Šæ”¾ä¸²å£å¯¹è±¡
 		delete m_pSerial;
 		m_pSerial = NULL;
-		//AfxMessageBox(L"´®¿Ú¹Ø±Õ³É¹¦");
+		//AfxMessageBox(L"ä¸²å£å…³é—­æˆåŠŸ");
 	}
 
 
@@ -530,7 +530,7 @@ LONG CTurnoutDlg::OnRecvSerialData(WPARAM wParam,LPARAM lParam)
 int CTurnoutDlg::GatherData(void)
 {
 	
-	//ÅĞ¶Ï´®¿ÚÊÇ·ñÒÑ¾­´ò¿ª
+	//åˆ¤æ–­ä¸²å£æ˜¯å¦å·²ç»æ‰“å¼€
 	if (m_pSerial != NULL)
 	{
 		m_pSerial->ClosePort();
@@ -539,48 +539,48 @@ int CTurnoutDlg::GatherData(void)
 		m_pSerial = NULL;
 	}
 	
-	//ĞÂ½¨´®¿ÚÍ¨Ñ¶¶ÔÏó
+	//æ–°å»ºä¸²å£é€šè®¯å¯¹è±¡
 	m_pSerial = new CCESeries();
 	m_pSerial->m_OnSeriesRead = OnSerialRead; //
 
-	//´ò¿ª´®¿Ú
+	//æ‰“å¼€ä¸²å£
 	if(m_pSerial->OpenPort(this,1,9600,0,8,0))
 	{
-		//AfxMessageBox(L"´®¿Ú´ò¿ª³É¹¦");
+		//AfxMessageBox(L"ä¸²å£æ‰“å¼€æˆåŠŸ");
 		Sleep(200);
 	}
 	else
 	{
-		AfxMessageBox(L"´®¿Ú´ò¿ªÊ§°Ü");
+		AfxMessageBox(L"ä¸²å£æ‰“å¼€å¤±è´¥");
 	}
 
 
 	
-	//·¢ËÍÊı¾İ
-	char * buf  =NULL;  //¶¨Òå·¢ËÍ»º³åÇø
-	DWORD dwBufLen = 0;   //¶¨Òå·¢ËÍ»º³åÇø³¤¶È
+	//å‘é€æ•°æ®
+	char * buf  =NULL;  //å®šä¹‰å‘é€ç¼“å†²åŒº
+	DWORD dwBufLen = 0;   //å®šä¹‰å‘é€ç¼“å†²åŒºé•¿åº¦
 	CString strSend = L"#010\r";
 
-	//´®¿ÚÈç¹ûÃ»ÓĞ´ò¿ª£¬Ö±½Ó·µ»Ø
+	//ä¸²å£å¦‚æœæ²¡æœ‰æ‰“å¼€ï¼Œç›´æ¥è¿”å›
 	if (m_pSerial == NULL)
 	{
-		AfxMessageBox(L"ÇëÏÈ´ò¿ª´®¿Ú");
+		AfxMessageBox(L"è¯·å…ˆæ‰“å¼€ä¸²å£");
 		return -1;
 	}
 	
-	//½«´ı·¢ËÍµÄ×Ö·û´®×ª»»³Éµ¥×Ö½Ú£¬½øĞĞ·¢ËÍ
+	//å°†å¾…å‘é€çš„å­—ç¬¦ä¸²è½¬æ¢æˆå•å­—èŠ‚ï¼Œè¿›è¡Œå‘é€
 	buf = new char[strSend.GetLength()*2+1];
 	ZeroMemory(buf,strSend.GetLength()*2+1);
-	//×ª»»³Éµ¥×Ö½Ú½øĞĞ·¢ËÍ	
+	//è½¬æ¢æˆå•å­—èŠ‚è¿›è¡Œå‘é€	
 	WideCharToMultiByte(CP_ACP,WC_COMPOSITECHECK,strSend.GetBuffer(strSend.GetLength())
 	   ,strSend.GetLength(),buf,strSend.GetLength()*2,NULL,NULL);
 
 	dwBufLen = strlen(buf) + 1;
 
-	//·¢ËÍ×Ö·û´®
+	//å‘é€å­—ç¬¦ä¸²
 	m_pSerial->WriteSyncPort((BYTE*)buf,dwBufLen);
 
-	//ÊÍ·ÅÄÚ´æ
+	//é‡Šæ”¾å†…å­˜
 	delete[] buf;
 	buf = NULL;
 
@@ -589,14 +589,14 @@ int CTurnoutDlg::GatherData(void)
 
 void CTurnoutDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: ÔÚ´ËÌí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂëºÍ/»òµ÷ÓÃÄ¬ÈÏÖµ
+	// TODO: åœ¨æ­¤æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç å’Œ/æˆ–è°ƒç”¨é»˜è®¤å€¼
 	//OnOK();
 	CDialog::OnLButtonUp(nFlags, point);
 }
 
 void CTurnoutDlg::OnBnClickedButton5()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CloseThread();
 	OnOK();
 }
@@ -616,13 +616,13 @@ void CTurnoutDlg::ReadParam(void)
 {
 	//if(::GetFileAttributes(_T("\\ResidentFlash2\\GUI\\parameter.txt")) == 0xFFFFFFFF)
 	//{
-		if(::GetFileAttributes(_T("\\Ó²ÅÌ\\parameter.txt")) != 0xFFFFFFFF)
-			::CopyFile(_T("\\Ó²ÅÌ\\parameter.txt"),ReturnPath()  +_T("parameter.txt"),false);
+		if(::GetFileAttributes(_T("\\ç¡¬ç›˜\\parameter.txt")) != 0xFFFFFFFF)
+			::CopyFile(_T("\\ç¡¬ç›˜\\parameter.txt"),ReturnPath()  +_T("parameter.txt"),false);
 	//}
 	//if(::GetFileAttributes(_T("\\ResidentFlash2\\GUI\\xishu.txt")) == 0xFFFFFFFF)
 	//{
-		//if(::GetFileAttributes(_T("\\Ó²ÅÌ\\xishu.txt")) != 0xFFFFFFFF)
-		//	::CopyFile(_T("\\Ó²ÅÌ\\xishu.txt"),_T("\\ResidentFlash2\\GUI\\xishu.txt"),false);
+		//if(::GetFileAttributes(_T("\\ç¡¬ç›˜\\xishu.txt")) != 0xFFFFFFFF)
+		//	::CopyFile(_T("\\ç¡¬ç›˜\\xishu.txt"),_T("\\ResidentFlash2\\GUI\\xishu.txt"),false);
 	//}
 	//(CTurnoutApp*) AfxGetApp()->MyVar
 	//
@@ -685,16 +685,16 @@ void CTurnoutDlg::ReadParam(void)
 
 void CTurnoutDlg::OnBnClickedButton6()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 }
 
 void CTurnoutDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO: ÔÚ´ËÌí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂëºÍ/»òµ÷ÓÃÄ¬ÈÏÖµ
+	// TODO: åœ¨æ­¤æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç å’Œ/æˆ–è°ƒç”¨é»˜è®¤å€¼
 	UINT16 Val;
 	API_ADC_Read(0,&Val);
 	//if(Val<m_Val) m_Val=Val;
-	if Val==0 then return;
+	if (Val==0)  return;
 	m_Val=Val;
 	double dBattery=m_Val*5.0/4096.0;
 
@@ -703,40 +703,40 @@ void CTurnoutDlg::OnTimer(UINT_PTR nIDEvent)
 	 /*
 	 if(dBattery>=4.47)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 	 }
 	 
 	 if(dBattery>=4.204&&dBattery<4.47)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 	 }
 	*/
 	 if(dBattery>=3.75)//4.20
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 	 }else if(dBattery>=3.48&&dBattery<3.75)//if(dBattery>=3.93&&dBattery<4.20)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP2));
 	 }else if(dBattery>=3.22&&dBattery<3.48)//if(dBattery>=3.93&&dBattery<4.20)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP3));
 	 }else if(dBattery>=2.95&&dBattery<3.22)//if(dBattery>=3.66&&dBattery<3.93)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP4));
 	 }else if(dBattery<2.95)////if(dBattery<3.66)
 	 {
-		//»ñµÃÎ»Í¼¾ä±ú
+		//è·å¾—ä½å›¾å¥æŸ„
 		hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP5));
 	 }
-	 //ÉèÖÃ¾²Ì¬¿Ø¼şµÄÑùÊ½£¬Ê¹Æä¿ÉÒÔÊ¹ÓÃÎ»Í¼£¬²¢ÊÔÎ»±êÏÔÊ¾Ê¹¾ÓÖĞ
+	 //è®¾ç½®é™æ€æ§ä»¶çš„æ ·å¼ï¼Œä½¿å…¶å¯ä»¥ä½¿ç”¨ä½å›¾ï¼Œå¹¶è¯•ä½æ ‡æ˜¾ç¤ºä½¿å±…ä¸­
 	 pStatic->ModifyStyle(0xF,SS_BITMAP|SS_CENTERIMAGE);
-	 //ÉèÖÃ¾²Ì¬¿Ø¼şÏÔÊ¾Î»Í¼
+	 //è®¾ç½®é™æ€æ§ä»¶æ˜¾ç¤ºä½å›¾
 	 pStatic->SetBitmap(hBitmap); 
 
 	CDialog::OnTimer(nIDEvent);
@@ -746,6 +746,6 @@ void CTurnoutDlg::OnDestroy()
 {
 	CDialog::OnDestroy();
 
-	// TODO: ÔÚ´Ë´¦Ìí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤å¤„æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç 
 	KillTimer(WM_UPDATESIMULATION);
 }

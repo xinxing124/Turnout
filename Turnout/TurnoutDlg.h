@@ -1,4 +1,4 @@
-// TurnoutDlg.h : Í·ÎÄ¼ş
+ï»¿// TurnoutDlg.h : å¤´æ–‡ä»¶
 //
 
 #pragma once
@@ -6,27 +6,27 @@
 #include "CESeries.h"
 #include "afxwin.h"
 
-// CTurnoutDlg ¶Ô»°¿ò
+// CTurnoutDlg å¯¹è¯æ¡†
 class CTurnoutDlg : public CDialog
 {
-// ¹¹Ôì
+// æ„é€ 
 public:
-	CTurnoutDlg(CWnd* pParent = NULL);	// ±ê×¼¹¹Ôìº¯Êı
+	CTurnoutDlg(CWnd* pParent = NULL);	// æ ‡å‡†æ„é€ å‡½æ•°
 
-// ¶Ô»°¿òÊı¾İ
+// å¯¹è¯æ¡†æ•°æ®
 	enum { IDD = IDD_TURNOUT_DIALOG };
 
 
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV Ö§³Ö
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV æ”¯æŒ
 
-// ÊµÏÖ
+// å®ç°
 protected:
 	HICON m_hIcon;
 
-	// Éú³ÉµÄÏûÏ¢Ó³Éäº¯Êı
+	// ç”Ÿæˆçš„æ¶ˆæ¯æ˜ å°„å‡½æ•°
 	virtual BOOL OnInitDialog();
-	// ´®¿Ú½ÓÊÕÊı¾İ´¦Àíº¯Êı
+	// ä¸²å£æ¥æ”¶æ•°æ®å¤„ç†å‡½æ•°
 	afx_msg LONG OnRecvSerialData(WPARAM wParam,LPARAM lParam);
 #if defined(_DEVICE_RESOLUTION_AWARE) && !defined(WIN32_PLATFORM_WFSP)
 	afx_msg void OnSize(UINT /*nType*/, int /*cx*/, int /*cy*/);
@@ -41,14 +41,14 @@ private:
 	double	 m_Xishu[17];
 	UINT16 m_Val;
 private:
-	//Ïß³Ìº¯Êı
+	//çº¿ç¨‹å‡½æ•°
     static  DWORD WINAPI ThreadFunc(LPVOID lparam);
-	//¹Ø±Õ¶ÁÏß³Ì
+	//å…³é—­è¯»çº¿ç¨‹
 	void CloseThread();
 private:
-	//¶ÁÏß³Ì¾ä±ú
+	//è¯»çº¿ç¨‹å¥æŸ„
 	HANDLE m_hThread;
-	//¶ÁÏß³ÌID±êÊ¶
+	//è¯»çº¿ç¨‹IDæ ‡è¯†
 	DWORD m_dwThreadID;
 	
 
@@ -72,7 +72,7 @@ public:
 	void ReadParam(void);
 	CString ReturnPath(void);
 private:
-	//¶¨Òå´®¿Ú½ÓÊÕÊı¾İº¯ÊıÀàĞÍ
+	//å®šä¹‰ä¸²å£æ¥æ”¶æ•°æ®å‡½æ•°ç±»å‹
 	static void CALLBACK OnSerialRead(void * pOwner,BYTE* buf,DWORD bufLen);
 	int GatherData(void);
 public:

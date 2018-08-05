@@ -1,10 +1,10 @@
-// Turnout.h : PROJECT_NAME Ó¦ÓÃ³ÌĞòµÄÖ÷Í·ÎÄ¼ş
+ï»¿// Turnout.h : PROJECT_NAME åº”ç”¨ç¨‹åºçš„ä¸»å¤´æ–‡ä»¶
 //
 
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error "ÔÚ°üº¬´ËÎÄ¼şÖ®Ç°°üº¬¡°stdafx.h¡±ÒÔÉú³É PCH ÎÄ¼ş"
+	#error "åœ¨åŒ…å«æ­¤æ–‡ä»¶ä¹‹å‰åŒ…å«â€œstdafx.hâ€ä»¥ç”Ÿæˆ PCH æ–‡ä»¶"
 #endif
 
 #ifdef STANDARDSHELL_UI_MODEL
@@ -12,7 +12,7 @@
 #endif
 
 // CTurnoutApp:
-// ÓĞ¹Ø´ËÀàµÄÊµÏÖ£¬Çë²ÎÔÄ Turnout.cpp
+// æœ‰å…³æ­¤ç±»çš„å®ç°ï¼Œè¯·å‚é˜… Turnout.cpp
 //
 
 class CTurnoutApp : public CWinApp
@@ -33,11 +33,11 @@ public:
 	CString  DifferenceValue;
 	CString UID;
 	double Val;
-// ÖØĞ´
+// é‡å†™
 public:
 	virtual BOOL InitInstance();
 	
-// ÊµÏÖ
+// å®ç°
 
 	DECLARE_MESSAGE_MAP()
 };
